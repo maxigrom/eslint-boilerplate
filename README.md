@@ -1,6 +1,8 @@
 # codelinters
 
-## bitbucket-pipelines.yml
+## JavaScript
+
+### bitbucket-pipelines.yml
 Этот файл содержит команды, которые запускаются при каждом push на сервер для каждого коммита. Bitbucket Pipeline будет разворачивать ноду и выполнять следующие команды:
 ```
 npm install
@@ -31,7 +33,7 @@ grep '.*\.js$'
 LIST=`...`; if [ "$LIST" ]; then eslint $LIST; fi
 ```
 
-## package.json
+### package.json
 
 В нём стоят основные пакеты, которые обеспечивают работу `eslint`. Сам `eslint` нам ставить не надо, он идёт внутри `react-scripts`. Мы используем правила AirBnB
 ```
@@ -69,16 +71,16 @@ LIST=`...`; if [ "$LIST" ]; then eslint $LIST; fi
 
 Каждый файл мы правим с помощью `eslint --fix`, а затем добавляем их в коммит с помощью `git add`
 
-## .eslintrc.js
+### .eslintrc.js
 
 Тут лежат настройки `eslint`. Почему именно `*.js` файл, а не `*.json`? Я не знаю, по другому не работало.
 
-## Внимание
+### Внимание
 
 Если эти пакеты не будут установлены, то автоматического форматирования добавленных файлов не будет, и они будут проверяться на сервере. 
 Если, конечно в репозитории включен Bitbucket Pipelines
 
-## Использование
+### Использование
 
 Скопировать файлы `.eslintrc.js`, `bitbucket-pipelines.yml` и `.editorconfig` в проект;
 
@@ -144,17 +146,19 @@ npm i --D eslint-config-airbnb@latest eslint-plugin-import@latest eslint-plugin-
 Запустите автофикс проекта и запушьте изменения:
 ```
 npm run eslint-fix
-git add . && git commit -m 'Added eslint to project' && git push
+git add .
+git commit -m 'Added eslint to project'
 ```
 
 Включите проверку файлов перед коммитом, вернув удалённую строку (`"eslint --fix",`) в `"lint-staged"` в файле `package.json`
 
 Добавьте его и сделайте коммит и пуш:
 ```
-git add . && git commit -m 'Turned on pre-commit hooks' && git push
+git add .
+git commit -m 'Turned on pre-commit hooks'
 ```
 
-### Почему так сложно? Хочу одной командой всё сделать?
+#### Почему так сложно? Хочу одной командой всё сделать?
 
 Это самый безболезненный способ перевести любой проект на eslint. Вы сначала фиксите его, а потом включаете проверку на клиенте и на сервере
 
